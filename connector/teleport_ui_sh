@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Python 환경 활성화 (가상환경 사용 시)
+# source /path/to/your/venv/bin/activate
+
+# 현재 스크립트 파일의 디렉토리 경로
+SCRIPT_DIR=$(dirname "$0")
+
+# 스크립트와 같은 디렉토리에 있는 ui.py 실행
+python3 "$SCRIPT_DIR/teleport_ui.py"

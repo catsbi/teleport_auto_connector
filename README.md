@@ -33,15 +33,10 @@
     ```
     properties_path = {path}
     ```
-3. 로그인& 로그아웃 실행   
-    - 로그인
-        ```zsh
-        /usr/bin/python3 {installed_path}/teleport_login.py
-        ```
-    - 로그아웃
-        ```zsh
-        /usr/bin/python3 {installed_path}/teleport_logout.py
-        ```
+3. 실행
+   - windows OS -> teleport_ui.bat 실행 / macOS -> teleport_ui_sh 실행
+   - 버튼을 통해 제어<p><img src="./gui_sample_image.png" title="GUI_SAMPLE"/></p>
+   - 윈도우 종료(X버튼)시에도 로그아웃 동작이 삽입되어 있습니다.
 4. 기존 Database 접속 GUI 툴의 설정 변경
    - HOST는 localhost로 변경한다. 
    - port는 teleport-properties.py 입력한 dv, st, qa에 맞게 변경한다.
@@ -49,7 +44,7 @@
    - password는 공백으로 설정한다.
 
 ## 2. 차후 고도화 예정 사항
-- GUI 사용 환경 개발 
+- GUI 사용 환경 개발 [1차 완료]
 
 ## 3. DevOps 팀 Teleport 참고 가이드 문서
 - [Teleport 가이드 문서](https://midastech.atlassian.net/wiki/spaces/platform/pages/111869954/Teleport)
@@ -63,3 +58,5 @@
     - 최초 개발
 - 2024.10.23: 0.0.2 
     - window 환경 고려 분기 로직 추가
+- 2024.10.23: 0.0.3
+    - windows OS / macOS GUI 추가
