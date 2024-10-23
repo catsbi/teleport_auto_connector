@@ -12,18 +12,16 @@
     ```zsh
     pip install {module name} # 혹은 pip3 install {module name}
     ```
-2. teleport_properties.py의 설정 값 입력
+2. 다음 양식에 맞춰 설정 정보 설정
     ```python
-    # OTP Secret Key 입력
-    OTP_SECRET_KEY = "your secret key"
-
-    # 로그인 아이디
-    USER_ID = "your id"
-    USER_PW = "your password"
-
-    DV_PORT= "4306" 
-    ST_PORT= "4307"
-    QA_PORT= "4308" 
+    {
+        "OTP_SECRET_KEY": "your_secret_key",
+        "USER_ID": "your_id",
+        "USER_PW": "your_password",
+        "DV_PORT": "4306",
+        "ST_PORT": "4307",
+        "QA_PORT": "4308"
+    }
     ```
    - 참고: OTP Secret Key는 Google OTP를 통해 생성된 키값을 입력하는 것이며 찾지 못하겠다면 다음 방법을 참고하자
      1. Teleport - QR 코드를 핸드폰 등으로 읽어 URL cncnf
@@ -31,6 +29,10 @@
         ```text
         otpauth://totp/midas-teleport%3Alhs0610%40teleport.devops.midasin.com?secret= {your_secret_key}
         ```
+3. teleport_properties.py에 설정정보 경로 입력
+    ```
+    properties_path = {path}
+    ```
 3. 로그인& 로그아웃 실행   
     - 로그인
         ```zsh

@@ -1,6 +1,6 @@
 import subprocess
 import os
-import teleport_properties as prop
+from teleport_properties import properties as prop
 
 def execute_database_logout():
     current_os = os.name  # 'posix' for Unix-like systems, 'nt' for Windows
@@ -14,15 +14,15 @@ def execute_database_logout():
     # Kill processes by port based on the OS
     if current_os == 'posix':  # Unix-like systems (Linux, macOS)
         commands += [
-            f"kill -9 $(lsof -t -i :{prop.DV_PORT})",
-            f"kill -9 $(lsof -t -i :{prop.ST_PORT})",
-            f"kill -9 $(lsof -t -i :{prop.QA_PORT})"
+            f"kill -9 $(lsof -t -i :{prop['DV_PORT']})",
+            f"kill -9 $(lsof -t -i :{prop['ST_PORT']})",
+            f"kill -9 $(lsof -t -i :{prop['QA_PORT']})"
         ]
     elif current_os == 'nt':  # Windows
         commands += [
-            f"netstat -ano | findstr :{prop.DV_PORT} | for /f \"tokens=5\" %a in ('findstr :{prop.DV_PORT}') do taskkill /PID %a /F",
-            f"netstat -ano | findstr :{prop.ST_PORT} | for /f \"tokens=5\" %a in ('findstr :{prop.ST_PORT}') do taskkill /PID %a /F",
-            f"netstat -ano | findstr :{prop.QA_PORT} | for /f \"tokens=5\" %a in ('findstr :{prop.QA_PORT}') do taskkill /PID %a /F"
+            f"netstat -ano | findstr :{prop['DV_PORT']} | for /f \"tokens=5\" %a in ('findstr :{prop['DV_PORT']}') do taskkill /PID %a /F",
+            f"netstat -ano | findstr :{prop['ST_PORT']} | for /f \"tokens=5\" %a in ('findstr :{prop['ST_PORT']}') do taskkill /PID %a /F",
+            f"netstat -ano | findstr :{prop['QA_PORT']} | for /f \"tokens=5\" %a in ('findstr :{prop['QA_PORT']}') do taskkill /PID %a /F"
         ]
 
     # Add the final logout command

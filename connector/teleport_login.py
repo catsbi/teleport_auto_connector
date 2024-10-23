@@ -2,7 +2,8 @@ import subprocess
 import pyotp
 import time
 import os
-import teleport_properties as prop
+import json
+from teleport_properties import properties as prop
 
 # 운영체제에 따라 pexpect 또는 wexpect를 동적으로 로드
 if os.name == 'posix':  # Unix-like 시스템 (Linux, macOS)
@@ -12,12 +13,12 @@ elif os.name == 'nt':  # Windows 시스템
 
 # Step 1: tsh login with OTP
 def tsh_login():
-    command = "tsh login --proxy teleport.devops.midasin.com --user " + prop.USER_ID
+    command = f"tsh login --proxy teleport.devops.midasin.com --user {prop['USER_ID']}" 
     child = expect_lib.spawn(command)
     
     # Expect for password prompt and send password
     # child.expect("Password:")
-    child.sendline(prop.USER_PW)
+    child.sendline(prop['USER_PW'])
     
     # After password, expect OTP prompt and generate OTP
     # child.expect("Enter your OTP code:")
@@ -30,7 +31,7 @@ def tsh_login():
 
 # OTP 생성 함수
 def generate_otp():
-    totp = pyotp.TOTP(prop.OTP_SECRET_KEY)
+    totp = pyotp.TOTP(prop['OTP_SECRET_KEY'])
     otp_code = totp.now()
     print(f"Generated OTP: {otp_code}")
     return otp_code
@@ -38,9 +39,9 @@ def generate_otp():
 # Step 3-5: tsh proxy db commands in background (daemon)
 def execute_proxy_db_commands_as_daemon():
     commands = [
-        "tsh proxy db --tunnel jobflex-b2b-dv --db-user developer --port "+ prop.DV_PORT,
-        "tsh proxy db --tunnel jobflex-b2b-st --db-user developer --port "+ prop.ST_PORT,
-        "tsh proxy db --tunnel jobflex-b2b-st2 --db-user developer --port "+ prop.QA_PORT
+        "tsh proxy db --tunnel jobflex-b2b-dv --db-user developer --port "+ prop['DV_PORT'],
+        "tsh proxy db --tunnel jobflex-b2b-st --db-user developer --port "+ prop['ST_PORT'],
+        "tsh proxy db --tunnel jobflex-b2b-st2 --db-user developer --port "+ prop['QA_PORT']
     ]
     
     processes = []
@@ -80,7 +81,7 @@ def isUsedTsh(ports):
 
 def main():
     # Step 1: Check Teleport Used Status
-    if(isUsedTsh([prop.DV_PORT, prop.ST_PORT, prop.QA_PORT])) :
+    if(isUsedTsh([prop['DV_PORT'], prop['ST_PORT'], prop['QA_PORT']])) :
         print("Exit Cause: Already Used Teleport")
         return
 
