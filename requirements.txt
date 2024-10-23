@@ -1,0 +1,6 @@
+- python
+    - pyotp
+    - window 일 경우
+        - wexpect
+    - linux or macOS 일 경우
+        - pexpect
