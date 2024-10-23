@@ -36,7 +36,6 @@
 3. 실행
    - windows OS -> teleport_ui.bat 실행 / macOS -> teleport_ui_sh 실행
    - 버튼을 통해 제어<p><img src="./gui_sample_image.png" title="GUI_SAMPLE"/></p>
-   - 윈도우 종료(X버튼)시에도 로그아웃 동작이 삽입되어 있습니다.
 4. 기존 Database 접속 GUI 툴의 설정 변경
    - HOST는 localhost로 변경한다. 
    - port는 teleport-properties.py 입력한 dv, st, qa에 맞게 변경한다.
