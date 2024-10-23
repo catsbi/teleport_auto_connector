@@ -33,7 +33,6 @@ def open_file_in_default_editor(filename):
         print("이 코드는 Windows와 macOS에서만 작동합니다.")  
 
 def on_window_close():
-     terminate_process()
      root.destroy()
 
 
