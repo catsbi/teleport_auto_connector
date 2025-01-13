@@ -4,6 +4,7 @@ import time
 import os
 import json
 from teleport_properties import properties as prop
+import teleport_logout as tlout
 
 # 운영체제에 따라 pexpect 또는 wexpect를 동적으로 로드
 if os.name == 'posix':  # Unix-like 시스템 (Linux, macOS)
@@ -78,11 +79,16 @@ def isUsedTsh(ports):
         return f"An error occurred: {e}"
 
 
-
-def main():
+def main(continueCount):
     # Step 1: Check Teleport Used Status
     if(isUsedTsh([prop['DV_PORT'], prop['ST_PORT'], prop['QA_PORT']])) :
-        print("Exit Cause: Already Used Teleport")
+        if (continueCount <= 0) :
+            print("The teleportation process is starting, and the remaining restart attempts have expired. Terminating the process.")
+        
+        continueCount-=1
+        print(f"The teleportation process is already in progress. It will be terminated and restarted. (Remaining attempts: {continueCount})")
+        tlout.execute_database_logout()
+        main(continueCount)
         return
 
     # Step 1: Login with OTP
@@ -92,4 +98,4 @@ def main():
     execute_proxy_db_commands_as_daemon()
 
 if __name__ == "__main__":
-    main()
+    main(3)
