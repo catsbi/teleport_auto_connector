@@ -9,7 +9,7 @@ import teleport_login
 import teleport_logout
  
 def execute_process():
-    teleport_login.main()
+    teleport_login.main(3)
 
 
 def terminate_process():

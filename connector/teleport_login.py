@@ -42,7 +42,8 @@ def execute_proxy_db_commands_as_daemon():
     commands = [
         "tsh proxy db --tunnel jobflex-b2b-dv --db-user developer --port "+ prop['DV_PORT'],
         "tsh proxy db --tunnel jobflex-b2b-st --db-user developer --port "+ prop['ST_PORT'],
-        "tsh proxy db --tunnel jobflex-b2b-st2 --db-user developer --port "+ prop['QA_PORT']
+        "tsh proxy db --tunnel jobflex-b2b-st2 --db-user developer --port "+ prop['QA_PORT'],
+        "tsh proxy db --tunnel ats-llm-dv --db-user developer --port "+ prop['RETENTION_DV_PORT']
     ]
     
     processes = []
@@ -81,7 +82,7 @@ def isUsedTsh(ports):
 
 def main(continueCount):
     # Step 1: Check Teleport Used Status
-    if(isUsedTsh([prop['DV_PORT'], prop['ST_PORT'], prop['QA_PORT']])) :
+    if(isUsedTsh([prop['DV_PORT'], prop['ST_PORT'], prop['QA_PORT'], prop['RETENTION_DV_PORT']])) :
         if (continueCount <= 0) :
             print("The teleportation process is starting, and the remaining restart attempts have expired. Terminating the process.")
         
